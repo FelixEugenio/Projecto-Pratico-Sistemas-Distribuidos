@@ -12,7 +12,8 @@ print(f"Tipo de x: {type(x)}")  # Isso irá imprimir <class 'int'>
 
 # Chamar a função 'isDivided_function' no servidor e exibir a mensagem de divisibilidade
 if s.isDivided_function(x, y):  # Se for divisível
-    print(f"O valor {x} é divisível por {y}.")
+    division_result = x / y
+    print(f"O valor {x} é divisível por {y}. O resultado da divisão é {division_result}.")
 else:  # Se não for divisível
     print(f"O valor {x} não é divisível por {y}.")
 
