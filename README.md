@@ -53,33 +53,27 @@ def isDivided_function(x, y):
 <p>O servidor ficará aguardando conexões dos clientes, receberá os valores, processará a verificação de divisibilidade e retornará o resultado. O código para o servidor é o seguinte:</p>
 
 <pre><code>
-import socket
+from xmlrpc.server import SimpleXMLRPCServer
+from xmlrpc.server import SimpleXMLRPCRequestHandler
 
-def isDivisivel(x, y):
-    if y == 0:
-        return "Erro: Divisão por zero!"
-    return x % y == 0
+# Restrict to a particular path.
+class RequestHandler(SimpleXMLRPCRequestHandler):
+    rpc_paths = ('/RPC2',)
 
-def servidor():
-    servidor_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    servidor_socket.bind(('localhost', 12345))
-    servidor_socket.listen(1)
-    print("Servidor esperando por conexão...")
+# Create server
+with SimpleXMLRPCServer(('localhost', 8000),
+                        requestHandler=RequestHandler) as server:
+    # Register introspection functions
+    server.register_introspection_functions()
+    
+    # Register function to check divisibility
+    def isDivided_function(x, y):
+        return x % y == 0
+    server.register_function(isDivided_function, 'isDivided_function')
 
-    while True:
-        cliente_socket, endereco_cliente = servidor_socket.accept()
-        print(f"Conexão estabelecida com {endereco_cliente}")
-
-        dados = cliente_socket.recv(1024).decode('utf-8')
-        x, y = map(int, dados.split(','))
-
-        resultado = isDivisivel(x, y)
-
-        cliente_socket.send(str(resultado).encode('utf-8'))
-        cliente_socket.close()
-
-if __name__ == "__main__":
-    servidor()
+    # Run the server's main loop
+    print("Server is running...")
+    server.serve_forever()
 </code></pre>
 
 <h4>Explicação do Servidor:</h4>
