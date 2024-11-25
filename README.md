@@ -88,24 +88,27 @@ with SimpleXMLRPCServer(('localhost', 8000),
 <p>O cliente solicita ao usuário dois números inteiros, envia esses números ao servidor e exibe o resultado recebido. O código para o cliente é o seguinte:</p>
 
 <pre><code>
-import socket
+import xmlrpc.client
 
-def cliente():
-    cliente_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    cliente_socket.connect(('localhost', 12345))
+# Conectar-se ao servidor XML-RPC
+s = xmlrpc.client.ServerProxy('http://localhost:8000')
 
-    x = int(input("Digite o primeiro número: "))
-    y = int(input("Digite o segundo número: "))
+# Obter entrada do usuário para dois valores
+x = int(input("Digite o 1º valor: "))
+y = int(input("Digite o 2º valor: "))
 
-    cliente_socket.send(f"{x},{y}".encode('utf-8'))
+# Exibir o tipo de x
+print(f"Tipo de x: {type(x)}")  # Isso irá imprimir <class 'int'>
 
-    resultado = cliente_socket.recv(1024).decode('utf-8')
+# Chamar a função 'isDivided_function' no servidor e exibir a mensagem de divisibilidade
+if s.isDivided_function(x, y):  # Se for divisível
+    division_result = x / y
+    print(f"O valor {x} é divisível por {y}. O resultado da divisão é {division_result}.")
+else:  # Se não for divisível
+    print(f"O valor {x} não é divisível por {y}.")
 
-    print(f"O resultado da verificação de divisibilidade é: {resultado}")
-    cliente_socket.close()
-
-if __name__ == "__main__":
-    cliente()
+# Exibir a lista de métodos disponíveis no servidor
+print(f"Métodos disponíveis no servidor: {s.system.listMethods()}")
 </code></pre>
 
 <h4>Explicação do Cliente:</h4>
