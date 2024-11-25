@@ -38,10 +38,8 @@
 <p>Esta função realiza a verificação se o número <code>x</code> é divisível por <code>y</code>. A lógica é simples: se o resto da divisão de <code>x</code> por <code>y</code> for igual a zero, então <code>x</code> é divisível por <code>y</code>.</p>
 
 <pre><code>
-def isDivisivel(x, y):
-    if y == 0:
-        return "Erro: Divisão por zero!"
-    return x % y == 0
+def isDivided_function(x, y):
+        return x % y == 0
 </code></pre>
 
 <ul>
