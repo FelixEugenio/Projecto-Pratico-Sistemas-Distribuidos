@@ -79,7 +79,7 @@ with SimpleXMLRPCServer(('localhost', 8000),
 <h4>Explicação do Servidor:</h4>
 <ul>
   <li>O servidor utiliza a função <code>socket.socket()</code> para criar um socket TCP.</li>
-  <li>O servidor se conecta ao <code>localhost</code> na porta <code>12345</code> e aguarda conexões.</li>
+  <li>O servidor se conecta ao <code>localhost</code> na porta <code>8000</code> e aguarda conexões.</li>
   <li>Quando um cliente se conecta, o servidor recebe os números enviados, executa a verificação de divisibilidade e envia o resultado para o cliente.</li>
 </ul>
 
@@ -159,7 +159,7 @@ Conexão estabelecida com ('127.0.0.1', 56789)
   <li><strong>Executar o Servidor:</strong>
     <p>Abra um terminal e execute o código do servidor:</p>
     <pre><code>python servidor.py</code></pre>
-    <p>O servidor ficará aguardando conexões na porta <code>12345</code>.</p>
+    <p>O servidor ficará aguardando conexões na porta <code>8000</code>.</p>
   </li>
   <li><strong>Executar o Cliente:</strong>
     <p>Abra outro terminal e execute o código do cliente:</p>
