@@ -1,21 +1,28 @@
 import xmlrpc.client
-
 # Conectar-se ao servidor XML-RPC
 s = xmlrpc.client.ServerProxy('http://localhost:8000')
 
 # Obter entrada do usuário para dois valores
-x = int(input("Digite o 1º valor: "))
-y = int(input("Digite o 2º valor: "))
+# Solicitar entradas do usuário
+x = input("Digite o 1º valor: ")
+y = input("Digite o 2º valor: ")
 
-# Exibir o tipo de x
-print(f"Tipo de x: {type(x)}")  # Isso irá imprimir <class 'int'>
+# Validar se as entradas são números inteiros
+try:
+    x = int(x)
+    y = int(y)
 
-# Chamar a função 'isDivided_function' no servidor e exibir a mensagem de divisibilidade
-if s.isDivided_function(x, y):  # Se for divisível
-    division_result = x / y
-    print(f"O valor {x} é divisível por {y}. O resultado da divisão é {division_result}.")
-else:  # Se não for divisível
-    print(f"O valor {x} não é divisível por {y}.")
+    print(f"Tipo de x: {type(x)}")
 
-# Exibir a lista de métodos disponíveis no servidor
-print(f"Métodos disponíveis no servidor: {s.system.listMethods()}")
+    # Verificar se é possível dividir por zero
+    if y == 0:
+        print("Erro: Não é possível dividir por zero.")
+    elif x % y == 0:  # Verificar se x é divisível por y
+        division_result = x / y
+        print(f"O valor {x} é divisível por {y}. O resultado da divisão é {division_result}.")
+    else:
+        print(f"O valor {x} não é divisível por {y}.")
+except ValueError:
+    print("Erro: Por favor, insira apenas números inteiros.")
+
+
